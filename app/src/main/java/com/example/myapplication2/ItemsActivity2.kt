@@ -23,12 +23,13 @@ class   ItemsActivity2 : AppCompatActivity() {
         val itemsList: RecyclerView = findViewById(R.id.itemsList)
         val items = arrayListOf<Item>()
 
-        val jsonString = resources.openRawResource(R.raw.shopping_list).bufferedReader().use { it.readText() }
+        val jsonString =
+            resources.openRawResource(R.raw.shopping_list).bufferedReader().use { it.readText() }
         val jsonArray = JSONArray(jsonString)
 
-        val builder = GsonBuilder().create()
-        val ggson = Gson().fromJson(jsonString, object : TypeToken<List<Item>>() {}.type)
-        val itemsAdapter = ItemsAdapter(ggson, context = this)
+        val itemList: List<Item> =
+            Gson().fromJson(jsonString, object : TypeToken<List<Item>>() {}.type)
+        val itemsAdapter = ItemsAdapter(itemList, context = this)
 
         itemsList.layoutManager = LinearLayoutManager(this)
         itemsList.adapter = itemsAdapter

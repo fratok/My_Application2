@@ -10,7 +10,6 @@ data class Item(
     val description: String,
     val additionalInfo1: String,
     val additionalInfo2: String,
-    val additionalInfo3: String,
     val price: Int
 )
 @Serializable

@@ -2,6 +2,7 @@ package com.example.myapplication2
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ItemsAdapter(var items: List<Item>, var context: Context) : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>(){
+class ItemsAdapter(private var items: List<Item>, var context: Context) : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>(){
 
     class MyViewHolder(view:View): RecyclerView.ViewHolder(view){
 
@@ -48,8 +49,8 @@ class ItemsAdapter(var items: List<Item>, var context: Context) : RecyclerView.A
         holder.btn.setOnClickListener{
             val intent = Intent(context, ItemActivity2::class.java)
 
-            intent.putExtra("itemTitle", items[position].name)
-            intent.putExtra("itemText", items[position].additionalInfo1)
+            intent.putExtra("itemTitle", items[position].additionalInfo1)
+            intent.putExtra("itemText", items[position].additionalInfo2)
 
 
             context.startActivity(intent)

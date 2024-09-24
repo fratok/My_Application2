@@ -17,8 +17,6 @@ class ItemActivity2 : AppCompatActivity() {
 
 
         title.text = intent.getStringExtra("itemTitle")
-        title.text = intent.getStringExtra("itemText")
-
-
+        text.text = intent.getStringExtra("itemText")
     }
 }
