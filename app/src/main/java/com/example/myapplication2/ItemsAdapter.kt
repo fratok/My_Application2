@@ -43,7 +43,6 @@ class ItemsAdapter(private var items: List<Item>, var context: Context) : Recycl
             "drawable",
             context.packageName
         )
-
         holder.image.setImageResource(imageId)
 
         holder.btn.setOnClickListener{
