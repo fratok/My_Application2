@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class ItemsAdapter(private var items: List<Item>, var context: Context) : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>(){
 
@@ -38,12 +39,12 @@ class ItemsAdapter(private var items: List<Item>, var context: Context) : Recycl
         holder.desc.text = items[position].description
         holder.price.text = items[position].price.toString() + "$"
 
-        val imageId = context.resources.getIdentifier(
-            items[position].image,
-            "drawable",
-            context.packageName
-        )
-        holder.image.setImageResource(imageId)
+        val imageUrl = items[position].imageUrl
+
+        // Используем Glide для загрузки изображения
+        Glide.with(context)
+            .load(imageUrl)
+            .into(holder.image)
 
         holder.btn.setOnClickListener{
             val intent = Intent(context, ItemActivity2::class.java)
