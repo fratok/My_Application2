@@ -1,3 +1,5 @@
+import java.util.regex.Pattern.compile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -61,7 +63,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    compile ("com.squareup.retrofit2:retrofit:2.3.0")
+    compile ("com.squareup.retrofit2:adapter-rxjava2:2.3.0")
+    compile ("com.squareup.retrofit2:converter-gson:2.3.0")
 
-
+    compile ("io.reactivex.rxjava2:rxandroid:2.0.1")
 
 }
