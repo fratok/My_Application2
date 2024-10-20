@@ -1,15 +1,15 @@
 package com.example.myapplication2
 
 import kotlinx.serialization.Serializable
-
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import retrofit2.Call
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Serializable
 data class Item(
@@ -29,10 +29,37 @@ data class ItemList(
 
 interface ItemApi{
     @GET("/JSON/shopping_list.json")
-    fun getItem(): Call<ItemList>
+    suspend fun getItem(): Response<ItemList>
 }
-val retrofit = Retrofit.Builder()
+private val retrofit = Retrofit.Builder()
     .baseUrl("https://fratok.github.io/")
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 val itemApi: ItemApi = retrofit.create(ItemApi::class.java)
+
+suspend fun fetchItems() {
+    val response = withContext(Dispatchers.IO) {
+        itemApi.getItem()
+    }
+
+    if (response.isSuccessful) {
+        val itemList = response.body()
+        itemList?.let {
+            updateUiWithItems(it.list)
+            }
+        } else {
+        val errorCode = response.code()
+        when (errorCode) {
+            404 -> showError("Страница не найдена")
+            500 -> showError("Ошибка сервера, попробуйте позже")
+            else -> showError("Неизвестная ошибка: $errorCode")
+        }
+    }
+}
+fun updateUiWithItems(items: List<Item>) {
+}
+
+fun showError(message: String) {
+}
+
+
